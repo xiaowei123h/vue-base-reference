@@ -1,0 +1,29 @@
+/* 全局 CSS 变量 */
+@import "./variables.css";
+/* Element Plus */
+@import "./element-plus.css";
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--v3-body-bg-color);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+a,
+a:focus,
+a:hover {
+  color: inherit;
+  outline: none;
+  text-decoration: none;
+}
+
+div:focus {
+  outline: none;
+}
