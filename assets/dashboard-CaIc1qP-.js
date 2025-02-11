@@ -1,1 +1,0 @@
-import{_ as s,j as o,k as c,i as t}from"./index-CqtqtJik.js";const a="/assets/welcome-Di2q9AJc.png",n={},r={class:"app-container"};function _(d,e){return t(),o("div",r,e[0]||(e[0]=[c("img",{src:a,class:"welcome"},null,-1)]))}const l=s(n,[["render",_],["__scopeId","data-v-42de850b"]]);export{l as default};
