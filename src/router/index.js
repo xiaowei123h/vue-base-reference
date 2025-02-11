@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 const Layout = () => import('@/layout/index.vue')
 
@@ -74,7 +74,7 @@ export const dynamicRoutes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes: constantRoutes,
   // 页面滚动行为
   scrollBehavior(to, from, savedPosition) {
