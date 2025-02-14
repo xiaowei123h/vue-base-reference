@@ -1,7 +1,7 @@
-<script setup>
-import { useSettingsStore } from "@/store/modules/settings"
-import { useLayoutMode } from "@/layout/composables/useLayoutMode"
-import { removeLayoutsConfig } from "@/layout/composables/local-storage"
+<script lang="ts" setup>
+import { useSettingsStore } from "@/store/modules/settings.ts"
+import { useLayoutMode } from "@/layout/composables/useLayoutMode.ts"
+import { removeLayoutsConfig } from "@/layout/composables/local-storage.ts"
 import { Refresh } from "@element-plus/icons-vue"
 import SelectLayoutMode from "./SelectLayoutMode.vue"
 

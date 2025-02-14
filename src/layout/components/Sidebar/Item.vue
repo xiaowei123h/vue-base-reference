@@ -1,17 +1,16 @@
-<script setup>
-import { isExternal } from "@/utils/validate"
+<script lang="ts" setup>
+import { isExternal } from "@/utils/validate.ts"
 import path from "path-browserify"
 import Link from "./Link.vue"
+import type { RouteRecordRaw } from "vue-router"
 
-const props = defineProps({
-  item: {
-    type: Object,
-    require: true
-  },
-  basePath: {
-    type: String,
-    default: ''
-  }
+interface Props {
+  item: RouteRecordRaw
+  basePath?: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  basePath: ""
 })
 
 
@@ -39,7 +38,7 @@ const theOnlyOneChild = computed(() => {
 })
 
 // 解析路径
-function resolvePath(routePath) {
+function resolvePath(routePath: string) {
   switch (true) {
     case isExternal(routePath):
       return routePath
@@ -59,7 +58,7 @@ if (props.item) {
 </script>
 
 <template>
-  <template v-if="(!alwaysShowRootMenu && theOnlyOneChild && !theOnlyOneChild.children) || itemChildrenNum == 0">
+  <template v-if="(!alwaysShowRootMenu && theOnlyOneChild && !theOnlyOneChild.children) || (itemChildrenNum == 0 && theOnlyOneChild)">
     <Link v-if="theOnlyOneChild.meta" :to="resolvePath(theOnlyOneChild.path)">
       <el-menu-item :index="resolvePath(theOnlyOneChild.path)">
         <SvgIcon v-if="theOnlyOneChild.meta.svgIcon" :name="theOnlyOneChild.meta.svgIcon" class="svg-icon" />

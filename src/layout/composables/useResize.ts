@@ -1,6 +1,6 @@
-import { useAppStore } from "@/store/modules/app"
-import { Device } from "@/layout/composables/app-key"
-import { onBeforeMount, onMounted, onBeforeUnmount } from 'vue'
+import { useAppStore } from "@/store/modules/app.ts"
+import { Device } from "@/layout/composables/app-key.ts"
+import { onBeforeMount, onMounted, onBeforeUnmount } from "vue"
 
 /** 参考 Bootstrap 的响应式设计将最大移动端宽度设置为 992 */
 const MAX_MOBILE_WIDTH = 992

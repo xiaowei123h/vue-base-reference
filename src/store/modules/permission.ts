@@ -1,12 +1,13 @@
 import { constantRoutes, dynamicRoutes } from '@/router'
+import type { RouteRecordRaw } from "vue-router"
 
-function hasPermission(roles, route) {
-  const routeRoles = route.meta?.roles
+function hasPermission(roles: string[], route: RouteRecordRaw) {
+  const routeRoles = route.meta?.roles as string[] | undefined
   return routeRoles ? roles.some(role => routeRoles.includes(role)) : true
 }
 
-function filterDynamicRoutes(routes, roles) {
-  const res = []
+function filterDynamicRoutes(routes: RouteRecordRaw[], roles: string[]) {
+  const res: RouteRecordRaw[] = []
   routes.forEach((route) => {
     const tempRoute = {...route}
     if (hasPermission(roles, tempRoute)) {
@@ -21,13 +22,13 @@ function filterDynamicRoutes(routes, roles) {
 
 export const usePermissionStore = defineStore('permission', () => {
   // 可访问的路由
-  const routes = ref([])
+  const routes = ref<RouteRecordRaw[]>([])
 
   // 有动态权限的路由
-  const addRoutes = ref([])
+  const addRoutes = ref<RouteRecordRaw[]>([])
 
   // 根据角色生成可访问的Routes（可访问的路由 = 常驻路由 + 有权限的可动态访问的路由）
-  const setRoutes = (roles) => {
+  const setRoutes = (roles: string[]) => {
     const accessedRoutes = filterDynamicRoutes(dynamicRoutes, roles)
     set(accessedRoutes)
   }
@@ -38,7 +39,7 @@ export const usePermissionStore = defineStore('permission', () => {
   }
 
   // 统一设置
-  const set = (accessedRoutes) => {
+  const set = (accessedRoutes: RouteRecordRaw[]) => {
     routes.value = constantRoutes.concat(accessedRoutes)
     addRoutes.value = accessedRoutes
   }

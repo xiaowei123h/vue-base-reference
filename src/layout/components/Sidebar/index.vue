@@ -1,11 +1,11 @@
-<script setup>
-import { useAppStore } from "@/store/modules/app"
-import { usePermissionStore } from "@/store/modules/permission"
-import { useSettingsStore } from "@/store/modules/settings"
-import { useDevice } from "@/layout/composables/useDevice"
-import { useLayoutMode } from "@/layout/composables/useLayoutMode"
+<script lang="ts" setup>
+import { useAppStore } from "@/store/modules/app.ts"
+import { usePermissionStore } from "@/store/modules/permission.ts"
+import { useSettingsStore } from "@/store/modules/settings.ts"
+import { useDevice } from "@/layout/composables/useDevice.ts"
+import { useLayoutMode } from "@/layout/composables/useLayoutMode.ts"
 import { getCssVar } from "@/utils/css"
-import { Logo } from "../index"
+import { Logo } from "../index.ts"
 import Item from "./Item.vue"
 
 const v3SidebarMenuBgColor = getCssVar("--v3-sidebar-menu-bg-color")

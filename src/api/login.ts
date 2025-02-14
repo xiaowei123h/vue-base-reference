@@ -1,6 +1,6 @@
-import request from '@/utils/request'
+import request from '@/utils/request.ts'
 
-export function logoutApi(data) {
+export function logoutApi(data: { token: string | undefined }) {
   return request({
     url: '/logout',
     method: 'post',
@@ -8,7 +8,7 @@ export function logoutApi(data) {
   })
 }
 
-export function loginApi(data) {
+export function loginApi(data: any) {
   return request({
     url: '/login',
     method: 'post',

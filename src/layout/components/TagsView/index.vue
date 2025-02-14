@@ -1,10 +1,12 @@
-<script setup>
-import { usePermissionStore } from "@/store/modules/permission"
-import { useTagsViewStore } from "@/store/modules/tags-view"
-import { useRouteListener } from "@/layout/composables/useRouteListener"
+<script lang="ts" setup>
+import { usePermissionStore } from "@/store/modules/permission.ts"
+import { useTagsViewStore } from "@/store/modules/tags-view.ts"
+import { useRouteListener } from "@/layout/composables/useRouteListener.ts"
 import { Close } from "@element-plus/icons-vue"
 import path from "path-browserify"
 import ScrollPane from "./ScrollPane.vue"
+import type { RouteLocationNormalizedLoaded, RouteRecordRaw, RouterLink } from "vue-router"
+import type { TagView } from "@/store/modules/tags-view.ts"
 
 const router = useRouter()
 
@@ -17,7 +19,7 @@ const permissionStore = usePermissionStore()
 const { listenerRouteChange } = useRouteListener()
 
 // 标签页组件元素的引用数组
-const tagRefs = ref([])
+const tagRefs = ref<InstanceType<typeof RouterLink>[]>([])
 
 // 右键菜单的状态
 const visible = ref(false)
@@ -29,24 +31,24 @@ const top = ref(0)
 const left = ref(0)
 
 // 当前正在右键操作的标签页
-const selectedTag = ref({})
+const selectedTag = ref<TagView>({})
 
 // 固定的标签页
-let affixTags = []
+let affixTags: TagView[] = []
 
 // 判断标签页是否激活
-function isActive(tag) {
+function isActive(tag: TagView) {
   return tag.path === route.path
 }
 
 // 判断标签页是否固定
-function isAffix(tag) {
+function isAffix(tag: TagView) {
   return tag.meta?.affix
 }
 
 // 筛选出固定标签页
-function filterAffixTags(routes, basePath = "/") {
-  const tags = []
+function filterAffixTags(routes: RouteRecordRaw[], basePath = "/") {
+  const tags: TagView[] = []
   routes.forEach((route) => {
     if (isAffix(route)) {
       const tagPath = path.resolve(basePath, route.path)
@@ -75,7 +77,7 @@ function initTags() {
 }
 
 // 添加标签页
-function addTags(route) {
+function addTags(route: RouteLocationNormalizedLoaded) {
   if (route.name) {
     tagsViewStore.addVisitedView(route)
     tagsViewStore.addCachedView(route)
@@ -83,13 +85,13 @@ function addTags(route) {
 }
 
 // 刷新当前正在右键操作的标签页
-function refreshSelectedTag(view) {
+function refreshSelectedTag(view: TagView) {
   tagsViewStore.delCachedView(view)
   router.replace({ path: `/redirect${view.path}`, query: view.query })
 }
 
 // 关闭当前正在右键操作的标签页
-function closeSelectedTag(view) {
+function closeSelectedTag(view: TagView) {
   tagsViewStore.delVisitedView(view)
   tagsViewStore.delCachedView(view)
   isActive(view) && toLastView(tagsViewStore.visitedViews, view)
@@ -106,7 +108,7 @@ function closeOthersTags() {
 }
 
 // 关闭所有标签页
-function closeAllTags(view) {
+function closeAllTags(view: TagView) {
   tagsViewStore.delAllVisitedViews()
   tagsViewStore.delAllCachedViews()
   if (affixTags.some(tag => tag.path === route.path)) return
@@ -114,7 +116,7 @@ function closeAllTags(view) {
 }
 
 // 跳转到最后一个标签页
-function toLastView(visitedViews, view) {
+function toLastView(visitedViews: TagView[], view: TagView) {
   const latestView = visitedViews.slice(-1)[0]
   const fullPath = latestView?.fullPath
   if (fullPath !== undefined) {
@@ -131,7 +133,7 @@ function toLastView(visitedViews, view) {
 }
 
 // 打开右键菜单面板
-function openMenu(tag, e) {
+function openMenu(tag: TagView, e: MouseEvent) {
   const menuMinWidth = 100
   // 当前页面宽度
   const offsetWidth = document.body.offsetWidth

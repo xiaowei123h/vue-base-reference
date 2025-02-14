@@ -1,5 +1,5 @@
-<script setup>
-import { useSettingsStore } from "@/store/modules/settings"
+<script lang="ts" setup>
+import { useSettingsStore } from "@/store/modules/settings.ts"
 import { AppMain, Logo, NavigationBar, TagsView } from "../components"
 
 const settingsStore = useSettingsStore()

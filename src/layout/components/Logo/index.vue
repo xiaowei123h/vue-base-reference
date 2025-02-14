@@ -1,14 +1,15 @@
-<script setup>
+<script lang="ts" setup>
 import logoText1 from "@/assets/images/logo-text-1.png?url"
 import logoText2 from "@/assets/images/logo-text-2.png?url"
 import logo from "@/assets/images/logo.png?url"
-import { useLayoutMode } from "@/layout/composables/useLayoutMode"
+import { useLayoutMode } from "@/layout/composables/useLayoutMode.ts"
 
-const props = defineProps({
-  collapse: {
-    type: Boolean,
-    define: true
-  }
+interface Props {
+  collapse?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  collapse: true
 })
 
 const { isLeft, isTop } = useLayoutMode()

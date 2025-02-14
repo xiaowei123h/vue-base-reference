@@ -1,9 +1,9 @@
-<script setup>
+<script lang="ts" setup>
 import Modal from "./Modal.vue"
 import { Search } from "@element-plus/icons-vue"
 
 /** 控制 modal 显隐 */
-const visible = ref(false)
+const visible = ref<boolean>(false)
 
 /** 打开 modal */
 function handleOpen() {

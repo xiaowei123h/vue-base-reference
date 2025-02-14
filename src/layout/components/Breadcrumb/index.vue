@@ -1,8 +1,9 @@
-<script setup>
-import { useRouteListener } from "@/layout/composables/useRouteListener"
+<script lang="ts" setup>
+import { useRouteListener } from "@/layout/composables/useRouteListener.ts"
 import { compile } from "path-to-regexp"
 import { useRoute, useRouter } from "vue-router"
 import { ref } from "vue"
+import type { RouteLocationMatched } from "vue-router"
 
 const route = useRoute()
 
@@ -11,7 +12,7 @@ const router = useRouter()
 const { listenerRouteChange } = useRouteListener()
 
 // 定义响应式数据 breadcrumbs，用于存储面包屑导航信息
-const breadcrumbs = ref([])
+const breadcrumbs = ref<RouteLocationMatched[]>([])
 
 // 获取面包屑导航信息
 function getBreadcrumb() {
@@ -19,15 +20,15 @@ function getBreadcrumb() {
 }
 
 // 编译路由路径
-function pathCompile(path) {
+function pathCompile(path: string) {
   const toPath = compile(path)
   return toPath(route.params)
 }
 
 // 处理面包屑导航点击事件
-function handleLink(item) {
+function handleLink(item: RouteLocationMatched) {
   const { redirect, path } = item
-  if (redirect) return router.push(redirect)
+  if (redirect) return router.push(redirect as string)
   router.push(pathCompile(path))
 }
 

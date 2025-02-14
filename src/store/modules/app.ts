@@ -1,20 +1,25 @@
-import { Device, SIDEBAR_CLOSED, SIDEBAR_OPENED } from "@/layout/composables/app-key"
-import { getSidebarStatus, setSidebarStatus } from "@/layout/composables/local-storage"
+import { Device, SIDEBAR_CLOSED, SIDEBAR_OPENED } from "@/layout/composables/app-key.ts"
+import { getSidebarStatus, setSidebarStatus } from "@/layout/composables/local-storage.ts"
+
+interface Sidebar {
+  opened: boolean
+  withoutAnimation: boolean
+}
 
 // 设置侧边栏状态本地缓存
-function handleSidebarStatus(opened) {
+function handleSidebarStatus(opened: boolean) {
   opened ? setSidebarStatus(SIDEBAR_OPENED) : setSidebarStatus(SIDEBAR_CLOSED)
 }
 
 export const useAppStore = defineStore('app', () => {
   // 侧边栏状态
-  const sidebar = reactive({
+  const sidebar: Sidebar = reactive({
     opened: getSidebarStatus() !== SIDEBAR_CLOSED,
     withoutAnimation: false
   })
 
   // 设备类型
-  const device = ref(Device.Desktop)
+  const device = ref<Device>(Device.Desktop)
 
   // 监听侧边栏 opened 状态
   watch(
@@ -25,19 +30,19 @@ export const useAppStore = defineStore('app', () => {
   )
 
   // 切换侧边栏
-  const toggleSidebar = (withoutAnimation) => {
+  const toggleSidebar = (withoutAnimation: boolean) => {
     sidebar.opened = !sidebar.opened
     sidebar.withoutAnimation = withoutAnimation
   }
 
   // 关闭侧边栏
-  const closeSidebar = (withoutAnimation) => {
+  const closeSidebar = (withoutAnimation: boolean) => {
     sidebar.opened = false
     sidebar.withoutAnimation = withoutAnimation
   }
 
   // 切换设备类型
-  const toggleDevice = (value) => {
+  const toggleDevice = (value: Device) => {
     device.value = value
   }
 

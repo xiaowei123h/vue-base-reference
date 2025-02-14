@@ -1,6 +1,6 @@
-<script setup>
-import { useAppStore } from "@/store/modules/app"
-import { useSettingsStore } from "@/store/modules/settings"
+<script lang="ts" setup>
+import { useAppStore } from "@/store/modules/app.ts"
+import { useSettingsStore } from "@/store/modules/settings.ts"
 import { AppMain, Logo, NavigationBar, Sidebar, TagsView } from "../components"
 
 const appStore = useAppStore()

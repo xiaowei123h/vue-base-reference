@@ -1,15 +1,21 @@
-<script setup>
+<script lang="ts" setup>
 import { Key, Lock, User } from "@element-plus/icons-vue"
-import { ElMessage } from 'element-plus'
+import { ElMessage, FormInstance, FormRules } from 'element-plus'
 import { useUserStore } from '@/store/modules/user'
 
-const loginForm = ref({
+interface loginFormType {
+  username: 'admin' | 'editor',
+  password: string,
+  code: string
+}
+
+const loginForm: Ref<loginFormType> = ref({
   username: 'admin',
   password: '123456',
   code: '7364'
 })
 
-const loginRules = {
+const loginRules: FormRules = {
   username: [
     { required: true, message: "请输入用户名", trigger: "blur" }
   ],
@@ -23,11 +29,11 @@ const loginRules = {
 
 const loading = ref(false)
 const router = useRouter()
-const loginRef = ref(null)
+const loginRef = ref<FormInstance | null>(null)
 
 function handleLogin() {
   loading.value = true
-  loginRef.value.validate((valid) => {
+  loginRef.value?.validate((valid) => {
     if (valid) {
       loading.value = false
       useUserStore().login(loginForm.value).then(() => {
@@ -41,7 +47,7 @@ function handleLogin() {
 }
 
 // vite使用本地图片方法
-const url = new URL('@/assets/images/code.jpg', import.meta.url).href
+const url: string = new URL('@/assets/images/code.jpg', import.meta.url).href
 </script>
 
 <template>

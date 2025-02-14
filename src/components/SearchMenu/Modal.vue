@@ -1,28 +1,30 @@
-<script setup>
-import { usePermissionStore } from "@/store/modules/permission"
-import { useDevice } from "@/layout/composables/useDevice"
-import { isExternal } from "@/utils/validate"
+<script lang="ts" setup>
+import { usePermissionStore } from "@/store/modules/permission.ts"
+import { useDevice } from "@/layout/composables/useDevice.ts"
+import { isExternal } from "@/utils/validate.ts"
 import { cloneDeep, debounce } from "lodash-es"
 import { Search } from "@element-plus/icons-vue"
 import { ElMessage } from "element-plus"
 import Footer from "./Footer.vue"
 import Result from "./Result.vue"
+import type { ElScrollbar } from "element-plus"
+import type { RouteRecordName, RouteRecordRaw } from "vue-router"
 
 // 控制 modal 显隐
-const modelValue = defineModel({ required: true })
+const modelValue = defineModel<boolean>({ required: true })
 
 const router = useRouter()
 const { isMobile } = useDevice()
 
-const inputRef = ref(null)
-const scrollbarRef = ref(null)
-const resultRef = ref(null)
+const inputRef = ref<HTMLInputElement | null>(null)
+const scrollbarRef = ref<InstanceType<typeof ElScrollbar> | null>(null)
+const resultRef = ref<InstanceType<typeof Result> | null>(null)
 
-const keyword = ref("")
-const result = shallowRef([])
-const activeRouteName = ref(undefined)
+const keyword = ref<string>("")
+const result = shallowRef<RouteRecordRaw[]>([])
+const activeRouteName = ref<RouteRecordName | undefined>(undefined)
 // 是否按下了上键或下键（用于解决和 mouseenter 事件的冲突）
-const isPressUpOrDown = ref(false)
+const isPressUpOrDown = ref<boolean>(false)
 
 // 控制搜索对话框宽度
 const modalWidth = computed(() => (isMobile.value ? "80vw" : "40vw"))
@@ -40,7 +42,7 @@ const handleSearch = debounce(() => {
 }, 500)
 
 // 将树形菜单扁平化为一维数组，用于菜单搜索
-function flatTree(arr, result = []) {
+function flatTree(arr: RouteRecordRaw[], result: RouteRecordRaw[] = []) {
   arr.forEach((item) => {
     result.push(item)
     item.children && flatTree(item.children, result)
@@ -59,7 +61,7 @@ function handleClose() {
 }
 
 // 根据下标位置进行滚动
-function scrollTo(index) {
+function scrollTo(index: number) {
   if (!resultRef.value) return
   const scrollTop = resultRef.value.getScrollTop(index)
   // 手动控制 el-scrollbar 滚动条滚动，设置滚动条到顶部的距离

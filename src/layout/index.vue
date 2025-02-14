@@ -1,12 +1,12 @@
-<script setup>
-import { useLayoutMode } from "./composables/useLayoutMode"
-import { useDevice } from "./composables/useDevice"
-import { useSettingsStore } from "@/store/modules/settings"
-import { useResize } from "./composables/useResize"
+<script lang="ts" setup>
+import { useLayoutMode } from "@/layout/composables/useLayoutMode.ts"
+import { useDevice } from "@/layout/composables/useDevice.ts"
+import { useSettingsStore } from "@/store/modules/settings.ts"
+import { useResize } from "@/layout/composables/useResize.ts"
 import LeftMode from "./modes/LeftMode.vue"
 import LeftTopMode from "./modes/LeftTopMode.vue"
 import TopMode from "./modes/TopMode.vue"
-import { RightPanel, Settings } from "./components"
+import { RightPanel, Settings } from "@/layout/components"
 import { getCssVar, setCssVar } from "@/utils/css"
 
 // Layout 布局响应式

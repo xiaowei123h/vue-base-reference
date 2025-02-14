@@ -1,6 +1,6 @@
-export function getMessage(code, msg) {
-  let message = ''
-  let type = 'info'
+export function getMessage(code: string, msg: string) {
+  let message: string = ''
+  let type: 'success' | 'error' | 'warning' | 'info' = 'info'
   switch (code) {
     case '200':
       message = msg

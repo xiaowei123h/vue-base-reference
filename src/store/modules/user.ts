@@ -1,19 +1,19 @@
-import { getToken, setToken, removeToken } from '@/utils/auth'
-import { logoutApi, loginApi, getInfoApi } from '@/api/login'
-import { useSettingsStore } from "./settings"
-import { useTagsViewStore } from "./tags-view"
+import { getToken, setToken, removeToken } from '@/utils/auth.ts'
+import { logoutApi, loginApi, getInfoApi } from '@/api/login.ts'
+import { useSettingsStore } from "./settings.ts"
+import { useTagsViewStore } from "./tags-view.ts"
 
 export const useUserStore = defineStore('user', () => {
-  const token = ref(getToken() || '')
-  const id = ref('')
-  const name = ref('')
-  const avatar = ref('')
-  const roles = ref([])
-  const permission = ref([])
+  const token = ref<string>(getToken() || '')
+  const id = ref<string>('')
+  const name = ref<string>('')
+  const avatar = ref<string>('')
+  const roles = ref<string[]>([])
+  const permission = ref<string[]>([])
 
   // 登录
-  const login = (userInfo) => {
-    return new Promise((resolve, reject) => {
+  const login = (userInfo: any) => {
+    return new Promise<void>((resolve, reject) => {
       loginApi(userInfo).then(res => {
         setToken(res.data.token)
         token.value = res.data.token
@@ -40,7 +40,7 @@ export const useUserStore = defineStore('user', () => {
 
   // 登出
   const logout = () => {
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       logoutApi({token: getToken()}).then(() => {
         resetToken()
         resetTagsView()

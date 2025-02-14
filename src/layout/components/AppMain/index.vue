@@ -1,7 +1,7 @@
-<script setup>
-import { useSettingsStore } from "@/store/modules/settings"
-import { useTagsViewStore } from "@/store/modules/tags-view"
-import { Footer } from "../index"
+<script lang="ts" setup>
+import { useSettingsStore } from "@/store/modules/settings.ts"
+import { useTagsViewStore } from "@/store/modules/tags-view.ts"
+import { Footer } from "../index.ts"
 
 const tagsViewStore = useTagsViewStore()
 const settingsStore = useSettingsStore()

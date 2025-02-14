@@ -10,7 +10,7 @@ import 'nprogress/nprogress.css'
 NProgress.configure({ showSpinner: false })
 
 // 白名单
-const whitList = ['/login']
+const whitList: string[] = ['/login']
 
 // 全局前置守卫
 router.beforeEach(async (to, from) => {

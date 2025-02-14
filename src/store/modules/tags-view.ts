@@ -1,28 +1,31 @@
-import { getCachedViews, getVisitedViews, setCachedViews, setVisitedViews } from "@/common/local-storage"
-import { useSettingsStore } from "./settings"
+import { getCachedViews, getVisitedViews, setCachedViews, setVisitedViews } from "@/common/local-storage.ts"
+import { useSettingsStore } from "./settings.ts"
+import type { RouteLocationNormalized } from "vue-router"
+
+export type TagView = Partial<RouteLocationNormalized>
 
 export const useTagsViewStore = defineStore("tags-view", () => {
   const { cacheTagsView } = useSettingsStore()
-  const visitedViews = ref(cacheTagsView ? getVisitedViews() : [])
-  const cachedViews = ref(cacheTagsView ? getCachedViews() : [])
+  const visitedViews = ref<TagView[]>(cacheTagsView ? getVisitedViews() : [])
+  const cachedViews = ref<string[]>(cacheTagsView ? getCachedViews() : [])
   // 不需要缓存的页面
   const notCache = ['/login', '/test']
 
   // add
-  const addVisitedView = (view) => {
+  const addVisitedView = (view: TagView) => {
     // 检查是否已经存在相同的 visitedView
     const index = visitedViews.value.findIndex(v => v.path === view.path)
     if (index !== -1) {
       // 防止 query 参数丢失
       visitedViews.value[index].fullPath !== view.fullPath && (visitedViews.value[index] = { ...view })
-    } else if (!notCache.includes(view.path)) {
+    } else if (!notCache.includes(view.path as string)) {
       // 添加新的 visitedView
       visitedViews.value.push({ ...view })
       setVisitedViews(visitedViews.value)
     }
   }
 
-  const addCachedView = (view) => {
+  const addCachedView = (view: TagView) => {
     if (typeof view.name !== "string") return
     if (cachedViews.value.includes(view.name)) return
     if (view.meta?.keepAlive) {
@@ -32,7 +35,7 @@ export const useTagsViewStore = defineStore("tags-view", () => {
   }
 
   // del
-  const delVisitedView = (view) => {
+  const delVisitedView = (view: TagView) => {
     const index = visitedViews.value.findIndex(v => v.path === view.path)
     if (index !== -1) {
       visitedViews.value.splice(index, 1)
@@ -40,7 +43,7 @@ export const useTagsViewStore = defineStore("tags-view", () => {
     }
   }
 
-  const delCachedView = (view) => {
+  const delCachedView = (view: TagView) => {
     if (typeof view.name !== "string") return
     const index = cachedViews.value.indexOf(view.name)
     if (index !== -1) {
@@ -50,14 +53,14 @@ export const useTagsViewStore = defineStore("tags-view", () => {
   }
 
   // delOthers
-  const delOthersVisitedViews = (view) => {
+  const delOthersVisitedViews = (view: TagView) => {
     visitedViews.value = visitedViews.value.filter((v) => {
       return v.meta?.affix || v.path === view.path
     })
     setVisitedViews(visitedViews.value)
   }
 
-  const delOthersCachedViews = (view) => {
+  const delOthersCachedViews = (view: TagView) => {
     if (typeof view.name !== "string") return
     const index = cachedViews.value.indexOf(view.name)
     if (index !== -1) {

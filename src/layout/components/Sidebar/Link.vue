@@ -1,11 +1,11 @@
-<script setup>
-import { isExternal } from "@/utils/validate"
+<script lang="ts" setup>
+import { isExternal } from "@/utils/validate.ts"
 
-const props = defineProps({
-  to: {
-    type: String,
-  }
-})
+interface Props {
+  to: string
+}
+
+const props = defineProps<Props>()
 </script>
 
 <template>

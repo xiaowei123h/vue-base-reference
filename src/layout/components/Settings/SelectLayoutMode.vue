@@ -1,6 +1,6 @@
-<script setup>
-import { useLayoutMode } from "@/layout/composables/useLayoutMode"
-import { LayoutMode } from "@/layout/composables/app-key"
+<script lang="ts" setup>
+import { useLayoutMode } from "@/layout/composables/useLayoutMode.ts"
+import { LayoutMode } from "@/layout/composables/app-key.ts"
 
 const { isLeft, isTop, isLeftTop, setLayoutMode } = useLayoutMode()
 </script>

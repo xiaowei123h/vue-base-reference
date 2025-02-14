@@ -1,8 +1,9 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import type { RouteRecordRaw } from "vue-router"
 
 const Layout = () => import('@/layout/index.vue')
 
-export const constantRoutes = [
+export const constantRoutes: RouteRecordRaw[] = [
   {
     path: '/',
     component: Layout,
@@ -38,7 +39,7 @@ export const constantRoutes = [
 ]
 
 // 动态路由
-export const dynamicRoutes = [
+export const dynamicRoutes: RouteRecordRaw[] = [
   {
     path: '/permission',
     component: Layout,

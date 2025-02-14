@@ -1,8 +1,8 @@
-<script setup>
-import { useAppStore } from "@/store/modules/app"
-import { useSettingsStore } from "@/store/modules/settings"
-import { useDevice } from "@/layout/composables/useDevice"
-import { useLayoutMode } from "@/layout/composables/useLayoutMode"
+<script lang="ts" setup>
+import { useAppStore } from "@/store/modules/app.ts"
+import { useSettingsStore } from "@/store/modules/settings.ts"
+import { useDevice } from "@/layout/composables/useDevice.ts"
+import { useLayoutMode } from "@/layout/composables/useLayoutMode.ts"
 import { AppMain, NavigationBar, Sidebar, TagsView } from "@/layout/components"
 
 const { isMobile } = useDevice()

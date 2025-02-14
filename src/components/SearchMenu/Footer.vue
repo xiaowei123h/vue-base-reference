@@ -1,7 +1,11 @@
-<script setup>
-import { useDevice } from "@/layout/composables/useDevice"
+<script lang="ts" setup>
+import { useDevice } from "@/layout/composables/useDevice.ts"
 
-const props = defineProps(['total'])
+interface Props {
+  total: number
+}
+
+const props = defineProps<Props>()
 
 const { isMobile } = useDevice()
 </script>
