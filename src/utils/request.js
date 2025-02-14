@@ -30,7 +30,7 @@ service.interceptors.response.use(res => {
   if (msg) ElMessage({ message: msg, type: type })
   if (code == '401') {
     // 登出
-    useUserStore().logout()
+    return useUserStore().logout()
   } else if (code != '200') {
     return Promise.reject(new Error(msg))
   } else {

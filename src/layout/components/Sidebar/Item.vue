@@ -59,7 +59,7 @@ if (props.item) {
 </script>
 
 <template>
-  <template v-if="(!alwaysShowRootMenu && theOnlyOneChild && !theOnlyOneChild.children) || itemChildrenNum == 0">
+  <template v-if="(!alwaysShowRootMenu && theOnlyOneChild && !theOnlyOneChild.children) || (itemChildrenNum == 0 && theOnlyOneChild)">
     <Link v-if="theOnlyOneChild.meta" :to="resolvePath(theOnlyOneChild.path)">
       <el-menu-item :index="resolvePath(theOnlyOneChild.path)">
         <SvgIcon v-if="theOnlyOneChild.meta.svgIcon" :name="theOnlyOneChild.meta.svgIcon" class="svg-icon" />
