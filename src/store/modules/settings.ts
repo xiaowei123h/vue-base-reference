@@ -23,7 +23,7 @@ export const useSettingsStore = defineStore('settings', () => {
       setLayoutsConfig(settings)
     })
   }
-
+ 
   // 将state下的键值对处理为不响应的对象返回
   const getCacheData = () => {
     const settings = {} as LayoutsConfig
